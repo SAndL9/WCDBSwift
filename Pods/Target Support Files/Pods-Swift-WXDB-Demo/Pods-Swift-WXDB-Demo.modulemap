@@ -1,0 +1,6 @@
+framework module Pods_Swift_WXDB_Demo {
+  umbrella header "Pods-Swift-WXDB-Demo-umbrella.h"
+
+  export *
+  module * { export * }
+}
