@@ -12,8 +12,10 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask,true).last! + "/PGDB/NewPGDB.db"
+        PGDataBaseManager.share.creatDB(withBaseDbPath: dbPath)
         
-    
+
         // Do any additional setup after loading the view.
         PGDataBaseManager.share.createTable(table: "lilei", of: Sample.self)
         let a = Sample.init()
@@ -43,8 +45,14 @@ class ViewController: UIViewController {
         d.description = "这是小刘的信息介绍库"
         d.show_id = 177299
         
+        let e = Sample.init()
+        e.age = 180
+        e.name = "大哥的"
+        e.description = "这是大哥的描述"
+        e.show_id = 8888801
+        
         //插入
-        PGDataBaseManager.share.insertToDB(objects: [a,b,c,d], intoTable: "lilei")
+        PGDataBaseManager.share.insertToDB(objects: [a,b,c,d,e], intoTable: "lilei")
         debugPrint("-------------------插入数据--------------------")
         getAllObject()
         
@@ -80,7 +88,8 @@ class ViewController: UIViewController {
         PGDataBaseManager.share.deleteFromDB(fromTable: "lilei")
         PGDataBaseManager.share.deleteFromDB(fromTable: "lilei", where: Sample.CodingKeys.age > 6)
         PGDataBaseManager.share.removeDBFile()
-    
+        debugPrint("-------------------删除---------")
+
     }
     
     

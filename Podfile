@@ -9,4 +9,6 @@ target 'Swift-WXDB-Demo' do
     pod 'SnapKit'
     #pod 'WCDB'
     pod 'WCDB.swift'
+    #pod 'LookinServer', :configurations => ['Debug']
+
 end

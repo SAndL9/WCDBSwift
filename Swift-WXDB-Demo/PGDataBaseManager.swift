@@ -9,23 +9,19 @@
 import UIKit
 import WCDBSwift
 import Foundation
-private struct PGBasePath {
-    let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask,true).last! + "/PGDB/PGDB.db"
-}
 
+
+/// wcdb数据库
 public class PGDataBaseManager: NSObject {
    public static let share = PGDataBaseManager.init()
     
-   private let dataBasePath = URL.init(fileURLWithPath: PGBasePath.init().dbPath)
    private var dataBase:Database?
-   private override init() {
-        super.init()
-        dataBase = creatDB()
-    }
-    //创建db
-    private func creatDB() ->Database {
-        debugPrint(dataBasePath)
-        return Database.init(withFileURL: dataBasePath)
+    
+    /// 创建db
+    /// - Parameter withBaseDbPath: 表存储的路径
+    func creatDB(withBaseDbPath:String) ->Void {
+        debugPrint(withBaseDbPath)
+        dataBase = Database.init(withFileURL: URL.init(fileURLWithPath: withBaseDbPath))
     }
     
     
@@ -40,7 +36,7 @@ public class PGDataBaseManager: NSObject {
         }
     }
         
-    /// 插入
+    /// 插入、更新
     /// - Parameter objects: 插入模型对象
     /// - Parameter table: 表名
     func insertToDB<T: TableEncodable>(objects:[T],intoTable table:String) -> Void {
